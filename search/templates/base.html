@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+    
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/stylesheet.css' %}">
+
+    <script type="text/javascript" src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+    
+
+    {% block head %}{% endblock %}  
+
+</head>
+
+<body>
+    <!-- 検索部分 -->
+    <div class="search">
+        <p class="title">ナイト口メニューはどこにあるかサーチ</p>
+        <form name="input_form">
+            {{ form.menu }} {{ form.pref }}
+            {% csrf_token %}
+        
+        <button type="button" class="btn" id="button">検索</button>
+        <button type="reset" class="btn">リセット</button> 
+    
+        </form>
+    </div>
+
+    <!-- 検索のajax -->
+    <script src="{% static 'js/ajax.js' %}"></script>
+    
+    {% block contents %}
+    {% endblock %}
+
+    <!-- 投稿 -->
+    <script>
+    function create_comment_view(){
+        target = document.getElementById("comment_list");
+        target.innerHTML = '';
+        
+        $.ajax({
+        type: 'GET',
+        url: '/comment_list/',
+        dataType : 'html',
+        success: function(data) {
+                $('#comment_list').html(data);
+            }  
+        });
+    
+    }
+    
+    {% comment %} window.onload = function(){
+        create_comment_view();
+    } {% endcomment %}
+
+    {% comment %} $('.btn_close').click(function(){
+        console.log("hogehoge");
+        create_comment_view();
+        
+    })
+     {% endcomment %}
+    </script>
+
+
+    <footer>
+        <script src="{% static 'js/modal.js' %}"></script>
+
+        <div id="modal">
+        <div class="background"></div>
+        <div class="container"></div>
+        </div><!-- modal --> 
+        
+        <a href="{% url 'search:comment' %}" class="modal foot_link">ナイト口のんだ？</a>         
+    </footer>   
+
+</body>
+
+</html>

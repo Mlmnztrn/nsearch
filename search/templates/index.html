@@ -1,0 +1,41 @@
+{% extends 'base.html' %} 
+
+
+{% block title %}ナイト口メニューはどこにあるかサーチ{% endblock %}
+
+{% block contents %}
+
+
+<div class="main">
+        <div class="store">
+                {% block sidebar_l %}                                
+                <div id="resultGET"></div>
+            
+                {% endblock %}
+
+        </div>
+
+        <div class="map">
+                {% block mid %}
+                <script type="text/javascript" language="javascript">
+                        function OnLinkClick() {
+                        target = document.getElementById("map_result");
+                        target.innerHTML = '';
+                        return false;
+                }
+                </script>
+                <div id="map_result"></div>
+                <iframe src="" name="map_result"></iframe>
+
+                {% endblock %}
+        </div>
+
+        <div class="comment">
+                {% block sidebar_r %}
+                <div id="comment_list"></div>
+
+                {% endblock %}
+        </div>
+</div>
+
+{% endblock %}

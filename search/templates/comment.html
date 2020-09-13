@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+    
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/stylesheet.css' %}">
+
+    <script src="{% static 'js/modal.js' %}"></script>
+
+    {% block head %}{% endblock %}  
+
+</head>
+
+<body>
+
+
+{% block contents %}
+
+    <div class="cmmnt">
+        <form method="post" enctype="multipart/form-data" id="form">        
+            <table border="0" width="100%" height="100%">
+                {% csrf_token %}
+                <tr>
+                    <td align="left">{{ form.image }}</td>
+                </tr>
+                <tr>
+                    <td align="left">ひとこと<br>{{ form.text }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            {% comment %} <button type="submit" class="btn_close" name="comment1">送信</button> {% endcomment %}
+                            <button type="button" id="comment_post" class="btn_close">送信</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+    </div>
+
+        <!-- 投稿のajax -->
+        <script src="{% static 'js/comment_post.js' %}"></script>
+      
+
+{% endblock %}
+</body>
+</html>
